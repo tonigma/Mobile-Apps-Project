@@ -19,7 +19,6 @@ const database = SQLite.openDatabase({
 });
 
 function initProducts() {
-  console.log('in init');
   const channel = new eventChannel((emiter) => {
     const listener = database.transaction((transaction) => {
       transaction.executeSql(
@@ -87,7 +86,6 @@ function getProductsEventChannel() {
 }
 
 function* getProducts() {
-  console.log('in products');
   const updateChannel = getProductsEventChannel();
   const item = yield take(updateChannel);
   yield put(update(item));
@@ -104,7 +102,6 @@ function* deleteProducts() {
 }
 
 function updateProductEventChannel(payload) {
-  console.log('payload', payload);
   const channel = new eventChannel((emiter) => {
     const listener = database.transaction(function (tx) {
       tx.executeSql(
